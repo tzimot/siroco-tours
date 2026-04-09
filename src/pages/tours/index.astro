@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { tours, TOUR_IMAGES } from '../../data/tours';
+---
+
+<Layout title="Our Tours" description="Explore 12 private, customizable Morocco tours from 4 to 15 days. Desert adventures, imperial cities, Atlas Mountains, coastal gems, and more.">
+  <main>
+    <!-- Hero -->
+    <section class="relative h-[50vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.aitBenhaddou} alt="UNESCO Ait Benhaddou kasbah with ancient earthen architecture against blue sky" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/60"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">Our Tours</h1>
+        <p class="text-white/80 text-lg max-w-2xl mx-auto">12 private, customizable journeys through Morocco's most captivating landscapes and cities.</p>
+      </div>
+    </section>
+
+    <!-- Tours Grid -->
+    <section class="py-16 bg-background">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {tours.map((tour, i) => (
+            <TourCard tour={tour} delay={Math.min(i * 0.05, 0.3)} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 bg-muted">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
+        <div class="animate-on-scroll">
+          <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight mb-4">Can't Decide? We Can Help!</h2>
+          <p class="text-muted-foreground max-w-xl mx-auto mb-6">Tell us about your interests, travel dates, and group size, and we will recommend the perfect tour for you.</p>
+          <a href="/contact/" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
+            Get Personalized Advice
+            <svg xmlns="https://www.shutterstock.com/image-vector/pixel-line-style-arrow-icons-260nw-2653558109.jpg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

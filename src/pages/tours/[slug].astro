@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tours, type Tour } from '../../data/tours';
+
+export function getStaticPaths() {
+  return tours.map((tour) => ({
+    params: { slug: tour.slug },
+    props: { tour },
+  }));
+}
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+const allImages = tour.galleryImages.filter(Boolean);
+---
+
+<Layout title={tour.name} description={tour.shortDescription}>
+  <main>
+    <!-- Hero -->
+    <section class="relative h-[60vh] min-h-[400px] flex items-end overflow-hidden">
+      <div class="absolute inset-0">
+        <img src={tour.heroImage} alt={`${tour.name} hero image - Morocco private tour`} class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+      </div>
+      <div class="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 w-full pb-12">
+        <a href="/tours/" class="inline-flex items-center gap-1 text-white/70 hover:text-white text-sm mb-4 transition-colors">
+          <svg xmlns="https://uxwing.com/wp-content/themes/uxwing/download/arrow-direction/left-arrow-icon.svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          Back to Tours
+        </a>
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-3">{tour.name}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-white/80">
+          <span class="flex items-center gap-1.5 text-sm">
+            <svg xmlns="https://thumbs.dreamstime.com/b/date-time-location-pin-vector-icon-set-map-marker-clock-calendar-event-icons-bundle-transparent-background-svg-png-402456586.jpg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {tour.duration}
+          </span>
+          <span class="flex items-center gap-1.5 text-sm">
+            <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Location_pin_icon.svg/960px-Location_pin_icon.svg.png" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            {tour.startLocation} → {tour.endLocation}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 py-12">
+      <div class="grid lg:grid-cols-3 gap-10">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Description -->
+          <div class="animate-on-scroll">
+            <h2 class="font-display text-2xl font-bold tracking-tight mb-4">About This Tour</h2>
+            <p class="text-muted-foreground leading-relaxed text-base">{tour.description}</p>
+            {tour.specialNotes && (
+              <div class="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                <div class="flex items-start gap-2">
+                  <svg xmlns="https://www.shutterstock.com/image-vector/collection-different-vector-sparkling-stars-260nw-2487425641.jpg" class="w-4 h-4 text-primary mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+                  <p class="text-sm text-muted-foreground">{tour.specialNotes}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Highlights -->
+          <div class="animate-on-scroll">
+            <h2 class="font-display text-2xl font-bold tracking-tight mb-4">Tour Highlights</h2>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {tour.highlights.map((h) => (
+                <div class="flex items-start gap-2 p-3 bg-muted rounded-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  <span class="text-sm">{h}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Itinerary -->
+          <div class="animate-on-scroll">
+            <h2 class="font-display text-2xl font-bold tracking-tight mb-6">Day-by-Day Itinerary</h2>
+            <div class="space-y-4">
+              {tour.itinerary.map((day, i) => (
+                <div class="animate-on-scroll bg-card p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow" data-delay={i * 0.05}>
+                  <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <span class="font-display font-bold text-primary text-sm">Day {day.day}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-semibold text-sm mb-1">{day.route}</h3>
+                      <p class="text-sm text-muted-foreground leading-relaxed">{day.highlights}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Gallery -->
+          <div class="animate-on-scroll">
+            <h2 class="font-display text-2xl font-bold tracking-tight mb-4">Gallery</h2>
+            <div class="grid grid-cols-2 gap-3">
+              {allImages.map((img, i) => (
+                <div class="relative aspect-[3/2] rounded-lg overflow-hidden bg-muted">
+                  <img src={img} alt={`${tour.name} - ${tour.highlights[i] || `scene ${i + 1}`}`} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Included / Not Included -->
+          <div class="animate-on-scroll">
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <h2 class="font-display text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
+                  <svg xmlns="https://images.vexels.com/media/users/3/340653/isolated/preview/823a2431c17f0f4a03b9044f84be6b77-simple-green-checkmark-icon-design.png" class="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  What's Included
+                </h2>
+                <ul class="space-y-2">
+                  {tour.included.map((item) => (
+                    <li class="flex items-start gap-2 text-sm">
+                      <svg xmlns="https://images.creativefabrica.com/products/previews/2024/03/27/2cOWoLrfZ/2eHEXT7VaXTHXpQuVFR6uPDUyOL-desktop.jpg" class="w-4 h-4 text-green-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h2 class="font-display text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
+                  <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Colordrawn_Red_X_in_circle.svg/960px-Colordrawn_Red_X_in_circle.svg.png" class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                  Not Included
+                </h2>
+                <ul class="space-y-2">
+                  {tour.notIncluded.map((item) => (
+                    <li class="flex items-start gap-2 text-sm">
+                      <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Red_X.svg/500px-Red_X.svg.png" class="w-4 h-4 text-red-500 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional Activities -->
+          {tour.optionalActivities.length > 0 && (
+            <div class="animate-on-scroll">
+              <h2 class="font-display text-xl font-bold tracking-tight mb-4 flex items-center gap-2">
+                <svg xmlns="https://images.vexels.com/media/users/3/134203/isolated/lists/9241e288f915ec8813765cbb4c5c65fe-star-stroke-icon-08.png" class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+                Optional Activities
+              </h2>
+              <div class="flex flex-wrap gap-2">
+                {tour.optionalActivities.map((activity) => (
+                  <span class="px-4 py-2 bg-muted rounded-full text-sm">{activity}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 space-y-6">
+            <!-- CTA Card -->
+            <div class="bg-card p-6 rounded-lg shadow-lg">
+              <h3 class="font-display text-xl font-bold mb-2">Interested in This Tour?</h3>
+              <p class="text-sm text-muted-foreground mb-6">This is a private tour, fully customizable to your preferences. Request a free, no-obligation quote.</p>
+              <a href={`/contact/?tour=${encodeURIComponent(tour.name)}`} class="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
+                Request a Quote
+                <svg xmlns="https://www.svgrepo.com/show/96618/arrow-pointing-right.svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </a>
+            </div>
+
+            <!-- Quick Facts -->
+            <div class="bg-card p-6 rounded-lg shadow-md">
+              <h3 class="font-display font-bold mb-4">Quick Facts</h3>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                  <svg xmlns="https://www.shutterstock.com/image-vector/outline-clock-icon-time-hands-260nw-2727577961.jpg" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div>
+                    <div class="text-xs text-muted-foreground">Duration</div>
+                    <div class="text-sm font-medium">{tour.duration}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-xs text-muted-foreground">Start</div>
+                    <div class="text-sm font-medium">{tour.startLocation}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-xs text-muted-foreground">End</div>
+                    <div class="text-sm font-medium">{tour.endLocation}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-primary shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                  <div>
+                    <div class="text-xs text-muted-foreground">Type</div>
+                    <div class="text-sm font-medium">Private, Customizable</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
