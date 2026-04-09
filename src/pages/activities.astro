@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { TOUR_IMAGES } from '../data/tours';
+
+const activities = [
+  {
+    title: 'Camel Trekking',
+    description: 'Experience the magic of the Sahara desert on camelback. Ride through golden dunes at sunrise or sunset for an unforgettable adventure.',
+    image: TOUR_IMAGES.hero,
+  },
+  {
+    title: 'Quad Biking',
+    description: 'Feel the adrenaline as you ride through desert landscapes and rocky terrain on powerful quad bikes. An exciting way to explore Morocco.',
+    image: TOUR_IMAGES.desertCamp,
+  },
+  {
+    title: 'Hot Air Balloon',
+    description: 'Soar above the stunning landscapes of Marrakech and the Atlas Mountains. A breathtaking aerial perspective of Morocco.',
+    image: TOUR_IMAGES.marrakech,
+  },
+  {
+    title: 'Cooking Classes',
+    description: 'Learn to prepare traditional Moroccan dishes like tagine and couscous with local chefs. Take home the flavours of Morocco.',
+    image: TOUR_IMAGES.door,
+  },
+  {
+    title: 'Hammam & Spa',
+    description: 'Indulge in a traditional Moroccan hammam experience. Relax and rejuvenate with authentic wellness treatments.',
+    image: TOUR_IMAGES.marrakech,
+  },
+  {
+    title: 'Sandboarding',
+    description: 'Slide down the towering dunes of the Sahara on a sandboard. A thrilling activity for adventure seekers of all ages.',
+    image: TOUR_IMAGES.hero,
+  },
+];
+---
+
+<Layout title="Activities" description="Extra activities to enhance your Morocco tour - camel trekking, quad biking, cooking classes, and more.">
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.desertCamp} alt="Morocco desert activities" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">ACTIVITIES</h1>
+      </div>
+    </section>
+
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="text-center mb-12 animate-on-scroll">
+          <p class="section-subtitle">BREAK THE ROUTINE</p>
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans">
+            Extra Activities for Your Tour
+          </h2>
+          <p class="text-[15px] text-primary/70 mt-4 max-w-2xl mx-auto">
+            We offer a variety of extra activities that can be added to any of our tours to make your experience even more exciting and memorable.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {activities.map((activity, i) => (
+            <div class="animate-on-scroll" data-delay={i * 0.1}>
+              <div class="relative overflow-hidden aspect-[4/3] bg-gray-200 group">
+                <img
+                  src={activity.image}
+                  alt={activity.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="lazy"
+                />
+                <div class="tour-card-overlay absolute inset-0"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
+                  <h3 class="text-white text-lg font-medium mb-2">{activity.title}</h3>
+                  <p class="text-white/80 text-[13px] leading-relaxed">{activity.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="text-center mt-12 animate-on-scroll">
+          <p class="text-[15px] text-primary/70 mb-6 max-w-xl mx-auto">
+            Interested in adding activities to your tour? Contact us and we will include them in your personalised itinerary.
+          </p>
+          <a href="/contact/" class="btn-submit" style="width: auto; display: inline-block;">
+            CONTACT US
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,172 +1,132 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CountUp from '../components/CountUp.astro';
 import { TOUR_IMAGES } from '../data/tours';
 
-const values = [
-  { icon: 'heart', title: 'Authenticity First', description: 'We connect travelers with real Morocco \u2014 its people, traditions, cuisine, and hidden corners that guidebooks miss. No tourist traps, just genuine experiences.' },
-  { icon: 'users', title: 'Personalized Service', description: 'Every traveler is unique. We tailor every tour to individual preferences, interests, pace, and dietary requirements. Your journey, your way.' },
-  { icon: 'shield', title: 'Trust & Safety', description: 'Government-licensed, fully insured vehicles and vetted accommodations. Your safety and comfort are always our top priority.' },
-  { icon: 'globe', title: 'Cultural Bridge', description: 'Our multilingual guides are not just translators \u2014 they are storytellers, cultural ambassadors, and your window into Moroccan life.' },
+const teamMembers = [
+  {
+    name: 'Pedro Maria',
+    role: 'Founder & Director',
+    description: 'With over 15 years of experience in Moroccan tourism, Pedro founded Siroco Tours to share his deep love for Morocco with travellers from around the world.',
+  },
+  {
+    name: 'Hassan',
+    role: 'Senior Guide',
+    description: 'Born and raised in the Sahara, Hassan brings unparalleled knowledge of desert culture, Berber traditions, and the hidden gems of southern Morocco.',
+  },
+  {
+    name: 'Sofia',
+    role: 'Travel Consultant',
+    description: 'Sofia specialises in crafting personalised itineraries. Fluent in Portuguese, English, and French, she ensures every detail of your trip is perfectly planned.',
+  },
+  {
+    name: 'Ahmed',
+    role: 'Guide - Imperial Cities',
+    description: 'An expert historian and storyteller, Ahmed brings the imperial cities to life with his deep knowledge of Moroccan history, architecture, and culture.',
+  },
 ];
 ---
 
-<Layout title="About Us" description="Learn about Siroco Tours - crafting unforgettable private Morocco tours since 2010. Meet our team of multilingual guides and discover our approach to authentic travel.">
+<Layout title="Team" description="Meet the team behind Siroco Tours. Experienced, multilingual guides dedicated to showing you the real Morocco.">
   <main>
     <!-- Hero -->
-    <section class="relative h-[50vh] min-h-[350px] flex items-center justify-center overflow-hidden">
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
       <div class="absolute inset-0">
-        <img src={TOUR_IMAGES.riad} alt="Beautiful Moroccan riad interior with zellige tilework and courtyard fountain" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-b from-black/50 to-black/60"></div>
+        <img src={TOUR_IMAGES.marrakech} alt="Siroco Tours team" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
       </div>
       <div class="relative z-10 text-center px-4">
-        <h1 class="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight mb-4">About Siroco Tours</h1>
-        <p class="text-white/80 text-lg max-w-2xl mx-auto">Crafting unforgettable Moroccan journeys since 2010.</p>
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">OUR TEAM</h1>
       </div>
     </section>
 
-    <!-- Story -->
-    <section class="py-20 bg-background">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="animate-on-scroll">
-            <span class="text-primary font-semibold text-sm uppercase tracking-widest">Our Story</span>
-            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3 mb-6">
-              Born from a <span class="text-primary">Passion</span> for Morocco
-            </h2>
-            <div class="space-y-4 text-muted-foreground leading-relaxed">
-              <p>Siroco Tours was founded with a simple belief: the best way to discover Morocco is through the eyes of those who call it home. Based in Casablanca as Soci\u00e9t\u00e9 Mono Tours, S.A.R.L., we have spent over 15 years perfecting the art of private, personalized travel.</p>
-              <p>Our name is inspired by the Sirocco \u2014 the warm, powerful wind that sweeps across the Sahara. Like the wind, we believe travel should be transformative, carrying you to new experiences and perspectives you never imagined.</p>
-              <p>From the labyrinthine medinas of Fes to the vast silence of the Erg Chebbi dunes, from the blue-washed streets of Chefchaouen to the Atlantic breeze of Essaouira \u2014 we have walked every path, tasted every dish, and befriended every village along the way.</p>
-            </div>
-          </div>
-          <div class="animate-on-scroll" data-delay="0.2">
-            <div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted">
-              <img src={TOUR_IMAGES.food} alt="Traditional Moroccan tagine feast with couscous, spices, and mint tea" class="w-full h-full object-cover" loading="lazy" />
-            </div>
-          </div>
+    <!-- About Section -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="max-w-3xl mx-auto text-center mb-16 animate-on-scroll">
+          <p class="section-subtitle">ABOUT SIROCO TOURS</p>
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans mb-6">
+            Passionate About Morocco
+          </h2>
+          <p class="text-[15px] text-primary/70 leading-relaxed mb-4">
+            Siroco Tours was founded with a simple mission: to share the authentic beauty of Morocco with travellers who seek genuine experiences beyond the typical tourist routes.
+          </p>
+          <p class="text-[15px] text-primary/70 leading-relaxed mb-4">
+            Based in Casablanca, our team of experienced guides and travel consultants have been crafting personalised Moroccan journeys for over 15 years. We believe travel should be personal, meaningful, and transformative.
+          </p>
+          <p class="text-[15px] text-primary/70 leading-relaxed">
+            Every tour is private and fully customizable &mdash; from a 4-day desert escape to a 15-day deep exploration. Our multilingual guides share not just facts, but stories, traditions, and hidden corners that only locals know.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <!-- Stats -->
-    <section class="py-12 bg-secondary text-white">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={12} /></div>
-            <div class="text-sm text-white/70 mt-1">Unique Tours</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={15} suffix="+" /></div>
-            <div class="text-sm text-white/70 mt-1">Years of Experience</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={4} /></div>
-            <div class="text-sm text-white/70 mt-1">Languages Spoken</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={1000} suffix="+" /></div>
-            <div class="text-sm text-white/70 mt-1">Happy Travelers</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Values -->
-    <section class="py-20 bg-muted">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="animate-on-scroll text-center mb-14">
-          <span class="text-primary font-semibold text-sm uppercase tracking-widest">Our Values</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3">What Guides Us</h2>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-6">
-          {values.map((v, i) => (
-            <div class="animate-on-scroll" data-delay={i * 0.1}>
-              <div class="bg-card p-6 rounded-lg shadow-md h-full">
-                <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <svg xmlns="https://static.vecteezy.com/system/resources/thumbnails/066/319/808/small/heart-shield-icon-set-red-security-emblem-with-white-heart-symbol-flat-protection-badge-with-love-shape-safety-and-care-metaphor-design-for-health-insurance-and-charity-branding-vector.jpg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    {v.icon === 'heart' && <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>}
-                    {v.icon === 'users' && <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
-                    {v.icon === 'shield' && <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>}
-                    {v.icon === 'globe' && <><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></>}
-                  </svg>
-                </div>
-                <h3 class="font-display text-lg font-bold mb-2">{v.title}</h3>
-                <p class="text-muted-foreground text-sm leading-relaxed">{v.description}</p>
+        <!-- Team Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {teamMembers.map((member, i) => (
+            <div class="text-center animate-on-scroll" data-delay={i * 0.15}>
+              <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl font-semibold text-primary">{member.name.charAt(0)}</span>
               </div>
+              <h3 class="text-[18px] font-semibold text-primary mb-1">{member.name}</h3>
+              <p class="text-[13px] text-primary-light font-medium uppercase tracking-wide mb-3">{member.role}</p>
+              <p class="text-[14px] text-primary/70 leading-relaxed">{member.description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Guides -->
-    <section class="py-20 bg-background">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="animate-on-scroll" data-delay="0.1">
-            <div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted">
-              <img src={TOUR_IMAGES.camelRide} alt="Guide leading camel ride through golden Erg Chebbi sand dunes" class="w-full h-full object-cover" loading="lazy" />
-            </div>
-          </div>
-          <div class="animate-on-scroll">
-            <span class="text-primary font-semibold text-sm uppercase tracking-widest">Our Guides</span>
-            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3 mb-6">
-              Local Experts, <span class="text-primary">Global</span> Communicators
-            </h2>
-            <div class="space-y-4 text-muted-foreground leading-relaxed">
-              <p>Our guides are the heart of Siroco Tours. Born and raised in Morocco, they bring deep local knowledge combined with international perspective. Each guide is fluent in multiple languages \u2014 English, Spanish, French, and Portuguese.</p>
-              <p>More than navigators, they are storytellers who bring Morocco's history, culture, and traditions to life. They know the best hidden restaurants, the quietest corners of the medina, and the perfect dune for watching the sunset.</p>
-              <p>In select cities like Fes, Marrakech, and Meknes, we also provide additional officially licensed local guides with specialized expertise in the city's history and monuments.</p>
-            </div>
-          </div>
+    <!-- Values Section -->
+    <section class="py-16 bg-white">
+      <div class="container-site">
+        <div class="text-center mb-12 animate-on-scroll">
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans">
+            Our Values
+          </h2>
         </div>
-      </div>
-    </section>
-
-    <!-- Approach -->
-    <section class="py-20 bg-muted">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="animate-on-scroll text-center mb-14">
-          <span class="text-primary font-semibold text-sm uppercase tracking-widest">Our Approach</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3">How We Travel</h2>
-        </div>
-        <div class="grid sm:grid-cols-3 gap-6">
-          {[
-            { icon: 'compass', title: 'Explore Freely', desc: 'No rigid schedules or crowded buses. Travel at your own pace with the flexibility to linger where you love.' },
-            { icon: 'mountain', title: 'Off the Beaten Path', desc: 'Discover hidden oases, remote Berber villages, and secret viewpoints that most visitors never see.' },
-            { icon: 'sun', title: 'Comfort & Care', desc: 'Air-conditioned private transport, handpicked accommodations, and attention to every detail of your comfort.' },
-          ].map((item, i) => (
-            <div class="animate-on-scroll" data-delay={i * 0.1}>
-              <div class="bg-card p-6 rounded-lg shadow-md text-center h-full">
-                <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="https://i.fbcd.co/products/original/compass-mountain-ii-01-0e4e5d7dacf99af0defc6d0873a0d582bfc370eae5e53f5732ff3983ef4825e1.jpg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    {item.icon === 'compass' && <><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></>}
-                    {item.icon === 'mountain' && <><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></>}
-                    {item.icon === 'sun' && <><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></>}
-                  </svg>
-                </div>
-                <h3 class="font-display font-bold mb-2">{item.title}</h3>
-                <p class="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
+        <div class="grid sm:grid-cols-3 gap-8">
+          <div class="text-center animate-on-scroll">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
             </div>
-          ))}
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Authenticity</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">We show you the real Morocco, beyond tourist facades. Genuine connections with local people and traditions.</p>
+          </div>
+          <div class="text-center animate-on-scroll" data-delay="0.15">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+              </svg>
+            </div>
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Safety</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">Government-licensed vehicles, experienced guides, and comprehensive insurance for your complete peace of mind.</p>
+          </div>
+          <div class="text-center animate-on-scroll" data-delay="0.3">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Excellence</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">From hand-picked accommodations to personalised itineraries, we deliver the highest standards in every detail.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="py-20 bg-secondary text-white">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-        <div class="animate-on-scroll">
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">Ready to Experience Morocco?</h2>
-          <p class="text-white/70 max-w-xl mx-auto mb-8">Let us craft your perfect Moroccan adventure. Get in touch for a free, personalized quote.</p>
-          <a href="/contact/" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
-            Contact Us
-            <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Right_arrow_icon.svg/1280px-Right_arrow_icon.svg.png" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-        </div>
+    <section class="relative overflow-hidden" style="min-height: 300px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.hero} alt="Morocco desert" class="w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16" style="min-height: 300px;">
+        <h2 class="text-white text-2xl sm:text-[30px] font-medium font-sans mb-6">
+          Ready to explore Morocco with us?
+        </h2>
+        <a href="/contact/" class="btn-cta">
+          CONTACT US &rarr;
+        </a>
       </div>
     </section>
   </main>

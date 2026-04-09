@@ -1,250 +1,405 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TourCard from '../components/TourCard.astro';
-import CountUp from '../components/CountUp.astro';
 import { tours, TOUR_IMAGES } from '../data/tours';
 
-const featuredTours = [
-  tours[0],  // Desert Trip
-  tours[2],  // North to South
-  tours[7],  // Desert Mountain Sea
-  tours[9],  // Photography Tour
-  tours[10], // Luxury Tour
-  tours[11], // Revisit Morocco
-];
+/* Show first 6 tours on homepage in 2-column grid like original */
+const homepageTours = tours.slice(0, 6);
 
-const testimonials = [
+const valuePropsTop = [
   {
-    name: 'Sarah & James',
-    location: 'London, UK',
-    text: 'An absolutely unforgettable experience. Our guide was incredibly knowledgeable, and every detail was perfectly arranged. The desert camp under the stars was the highlight of our trip.',
-    tour: 'Imperial Cities and Desert',
+    icon: 'shield-check',
+    title: 'Safe and Private Tours',
+    description: 'Journey with confidence alongside our experienced guides, whose intimate knowledge of Morocco guarantees a safe and private adventure.',
   },
   {
-    name: 'Miguel & Ana',
-    location: 'Lisbon, Portugal',
-    text: 'Siroco Tours exceeded all expectations. The private tour allowed us to go at our own pace and discover hidden gems. The Berber hospitality was heartwarming.',
-    tour: 'Nature and Culture',
+    icon: 'edit',
+    title: 'Fully Customizable Itineraries',
+    description: 'We adapt every detail of your tour to your preferences and are dedicated to answering all your inquiries.',
   },
   {
-    name: 'David Cohen',
-    location: 'New York, USA',
-    text: "The Jewish Heritage tour was deeply moving and educational. Our guide's knowledge of Jewish-Moroccan history was remarkable. A truly meaningful journey.",
-    tour: 'Jewish Heritage in Morocco',
-  },
-  {
-    name: 'Claire Dupont',
-    location: 'Paris, France',
-    text: 'The photography tour was paradise for my camera! From the blue streets of Chefchaouen to sunrise over the dunes, every moment was frame-worthy. Highly recommend!',
-    tour: 'Photography Tour',
+    icon: 'star',
+    title: 'Quality and Comfort',
+    description: "Experience the true essence of Morocco's captivating culture, all while enjoying the highest standards of comfort and quality.",
   },
 ];
 
-const valueProps = [
-  { icon: 'users', title: 'Private & Personalized', description: 'Every tour is exclusively yours. Customize itineraries, pace, and activities to match your travel style.' },
-  { icon: 'globe', title: 'Multilingual Guides', description: 'Expert local guides fluent in English, Spanish, French, and Portuguese ensure seamless communication.' },
-  { icon: 'shield', title: 'Licensed & Insured', description: 'Government-licensed vehicles with AC and comprehensive insurance for your peace of mind.' },
-  { icon: 'heart', title: 'Authentic Experiences', description: 'Go beyond tourist routes. Connect with Berber families, artisans, and local traditions.' },
+const features = [
+  {
+    icon: 'map-pin',
+    title: 'Original Itinerary',
+    description: "We specialise in planning original itineraries so that you can explore the essence of Morocco away from the 'mass tourism' routes. Our aim is to provide a personal service and suggest ideas that suit your style and preferences.",
+  },
+  {
+    icon: 'clock-24',
+    title: '24 Hour Assistance',
+    description: "From the moment you first contact us, we'll be on hand to clarify all your doubts and support you at any time, via email or WhatsApp. All tours are personalised. You'll feel accompanied throughout the process.",
+  },
+  {
+    icon: 'building',
+    title: 'Quality Accommodation',
+    description: 'The accommodation we have carefully chosen for you has typical Moroccan decor and is of great quality and charm. The cuisine is also excellent. We are very careful in our choice of hotels and they are all very well located.',
+  },
+  {
+    icon: 'car',
+    title: 'Private Transport',
+    description: 'Our vehicles (SUVs, 4x4s, vans, and buses) are comfortable, new, equipped with air conditioning, and officially licensed for tourism by the Moroccan Government.',
+  },
+];
+
+const steps = [
+  {
+    number: '01',
+    title: 'Contact us for more information',
+    description: "Feel free to talk to us, no strings attached! You can send us an email, WhatsApp, fill in our detailed form or call us on our telephone numbers. We're here to help you!",
+  },
+  {
+    number: '02',
+    title: 'Clarify all your doubts',
+    description: "We want to understand your preferences and give you the best possible advice. Talk to one of our attentive travel agents. We'll create the perfect trip, tailored to your needs and desires.",
+  },
+  {
+    number: '03',
+    title: 'Direct and detailed communication',
+    description: "We'll provide you with a suggested itinerary that's tailored to your preferences. Once you've decided to travel, we'll confirm the booking and send you a travel guide with everything you need to know and the final details.",
+  },
+  {
+    number: '04',
+    title: 'Relax and enjoy your trip',
+    description: "With the attentive company of one of our experienced English-speaking private guides, you'll get to know the real Morocco, away from the mass tourism routes, and explore its culture by getting in touch with the local population.",
+  },
 ];
 ---
 
 <Layout title="Home">
   <main>
-    <!-- Hero Section -->
-    <section class="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+    <!-- ==================== HERO ==================== -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 550px;">
       <div class="absolute inset-0">
-        <img src={TOUR_IMAGES.hero} alt="Golden Sahara desert dunes at sunset with camel caravan silhouette" class="w-full h-full object-cover" />
-        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60"></div>
+        <img src={TOUR_IMAGES.hero} alt="Golden Sahara desert dunes with camel caravan" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/30"></div>
       </div>
-      <div class="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-        <div class="animate-on-scroll">
-          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-6 leading-tight">
-            Discover the <span class="text-primary">Magic</span> of Morocco
-          </h1>
-          <p class="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Private, customizable tours through ancient medinas, vast Sahara dunes, majestic mountains, and vibrant cities — crafted exclusively for you.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/tours/" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity">
-              Explore Our Tours
-              <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/GreenButton_RightArrow.svg/3840px-GreenButton_RightArrow.svg.png" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </a>
-            <a href="/contact/" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-white/15 backdrop-blur-sm text-white font-semibold text-base hover:bg-white/25 transition-colors border border-white/20">
-              Request a Quote
-            </a>
-          </div>
-        </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="hero-title text-3xl sm:text-4xl md:text-[36px] animate-on-scroll">
+          M O R O C C O &nbsp; P R I V A T E &nbsp; T O U R S
+        </h1>
       </div>
     </section>
 
-    <!-- Stats Bar -->
-    <section class="bg-secondary text-white py-8">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={12} suffix="+" /></div>
-            <div class="text-sm text-white/70 mt-1">Unique Tours</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={15} suffix="+" /></div>
-            <div class="text-sm text-white/70 mt-1">Years Experience</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={4} /></div>
-            <div class="text-sm text-white/70 mt-1">Languages</div>
-          </div>
-          <div>
-            <div class="font-display text-3xl sm:text-4xl font-bold text-primary"><CountUp end={100} suffix="%" /></div>
-            <div class="text-sm text-white/70 mt-1">Private Tours</div>
-          </div>
+    <!-- ==================== DISCOVER SECTION (3 Value Props) ==================== -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="text-center mb-12 animate-on-scroll">
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans">
+            Discover Our Morocco Private Tours
+          </h2>
         </div>
-      </div>
-    </section>
-
-    <!-- About Preview -->
-    <section class="py-20 bg-background">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-          <div class="animate-on-scroll">
-            <div class="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted">
-              <img src={TOUR_IMAGES.desertCamp} alt="Luxury Berber desert camp at night with lanterns and star-filled sky" class="w-full h-full object-cover" loading="lazy" />
+        <div class="grid sm:grid-cols-3 gap-10">
+          {valuePropsTop.map((prop, i) => (
+            <div class="text-center animate-on-scroll" data-delay={i * 0.15}>
+              <div class="flex justify-center mb-4">
+                {prop.icon === 'shield-check' && (
+                  <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                  </svg>
+                )}
+                {prop.icon === 'edit' && (
+                  <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                    <path d="m15 5 4 4"/>
+                  </svg>
+                )}
+                {prop.icon === 'star' && (
+                  <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/>
+                    <path d="M19.5 10c.5 0 1 .5 1 1v2c0 .5-.5 1-1 1"/>
+                    <path d="M4.5 10c-.5 0-1 .5-1 1v2c0 .5.5 1 1 1"/>
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  </svg>
+                )}
+              </div>
+              <h3 class="text-[18px] font-semibold text-primary mb-3">{prop.title}</h3>
+              <p class="text-[15px] text-primary/80 leading-relaxed">{prop.description}</p>
             </div>
-          </div>
-          <div class="animate-on-scroll" data-delay="0.2">
-            <span class="text-primary font-semibold text-sm uppercase tracking-widest">About Siroco Tours</span>
-            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3 mb-6">
-              Your Gateway to <span class="text-primary">Authentic</span> Morocco
-            </h2>
-            <p class="text-muted-foreground leading-relaxed mb-4">
-              Based in Casablanca, Siroco Tours has been crafting unforgettable Moroccan journeys for over 15 years. We believe travel should be personal, meaningful, and transformative.
-            </p>
-            <p class="text-muted-foreground leading-relaxed mb-6">
-              Every tour is private and fully customizable — from a 4-day desert escape to a 15-day deep exploration. Our multilingual guides share not just facts, but stories, traditions, and hidden corners that only locals know.
-            </p>
-            <a href="/about/" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
-              Learn More About Us
-              <svg xmlns="https://i.etsystatic.com/23821301/r/il/7badc5/4897732962/il_570xN.4897732962_tur0.jpg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </a>
-          </div>
+          ))}
         </div>
       </div>
     </section>
 
-    <!-- Featured Tours -->
-    <section class="py-20 bg-muted">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="animate-on-scroll text-center mb-14">
-          <span class="text-primary font-semibold text-sm uppercase tracking-widest">Our Tours</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3">Explore Morocco Your Way</h2>
-          <p class="text-muted-foreground mt-4 max-w-2xl mx-auto">From short desert getaways to comprehensive cross-country journeys — choose the adventure that speaks to you.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredTours.map((tour, i) => (
+    <!-- ==================== TOUR CARDS (2-col grid like original) ==================== -->
+    <section class="py-8 bg-background">
+      <div class="container-site">
+        <div class="grid sm:grid-cols-2 gap-6">
+          {homepageTours.map((tour, i) => (
             <TourCard tour={tour} delay={i * 0.1} />
           ))}
         </div>
-        <div class="animate-on-scroll text-center mt-10">
-          <a href="/tours/" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
-            View All 12 Tours
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <div class="text-center mt-10 animate-on-scroll">
+          <a href="/tours/" class="btn-cta">
+            VIEW ALL TOURS &rarr;
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="py-20 bg-background">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="animate-on-scroll text-center mb-14">
-          <span class="text-primary font-semibold text-sm uppercase tracking-widest">Why Siroco Tours</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3">Travel with Confidence</h2>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {valueProps.map((prop, i) => (
-            <div class="animate-on-scroll" data-delay={i * 0.1}>
-              <div class="bg-card p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-center h-full">
-                <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    {prop.icon === 'users' && <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
-                    {prop.icon === 'globe' && <><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></>}
-                    {prop.icon === 'shield' && <><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></>}
-                    {prop.icon === 'heart' && <><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></>}
+    <!-- ==================== PERSONALISED TOURS TAGLINE ==================== -->
+    <section class="py-6 bg-background">
+      <div class="container-site text-center">
+        <p class="section-subtitle animate-on-scroll">
+          Personalised tours in Morocco &ndash; original and genuine experiences
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== 4 FEATURES (Original Itinerary, 24h, etc.) ==================== -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {features.map((feat, i) => (
+            <div class="text-center animate-on-scroll" data-delay={i * 0.1}>
+              <div class="flex justify-center mb-4">
+                {feat.icon === 'map-pin' && (
+                  <svg class="w-16 h-16 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
                   </svg>
-                </div>
-                <h3 class="font-display font-bold mb-2">{prop.title}</h3>
-                <p class="text-sm text-muted-foreground leading-relaxed">{prop.description}</p>
+                )}
+                {feat.icon === 'clock-24' && (
+                  <svg class="w-16 h-16 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    <text x="8" y="20" font-size="5" fill="currentColor" stroke="none">24</text>
+                  </svg>
+                )}
+                {feat.icon === 'building' && (
+                  <svg class="w-16 h-16 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/>
+                    <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/>
+                    <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/>
+                    <path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>
+                  </svg>
+                )}
+                {feat.icon === 'car' && (
+                  <svg class="w-16 h-16 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/>
+                    <circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>
+                  </svg>
+                )}
               </div>
+              <h3 class="text-[18px] font-semibold text-primary mb-3">{feat.title}</h3>
+              <p class="text-[14px] text-primary/70 leading-relaxed text-justify">{feat.description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Parallax Image -->
-    <section class="relative h-[400px] overflow-hidden">
+    <!-- ==================== PARALLAX CTA - "Our Morocco Private Tours are designed to your taste" ==================== -->
+    <section class="relative overflow-hidden" style="min-height: 400px;">
       <div class="absolute inset-0">
-        <img src={TOUR_IMAGES.marrakech} alt="Vibrant Marrakech medina spice market with colorful spices and lanterns" class="w-full h-full object-cover" loading="lazy" />
-        <div class="absolute inset-0 bg-black/40"></div>
+        <img src={TOUR_IMAGES.marrakech} alt="Vibrant Moroccan market scene" class="w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-black/50"></div>
       </div>
-      <div class="relative z-10 flex items-center justify-center h-full text-center px-4">
-        <div>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight mb-4">Ready for an Adventure?</h2>
-          <p class="text-white/80 text-lg max-w-xl mx-auto mb-6">Every journey begins with a single step. Let us help you take yours through the wonders of Morocco.</p>
-          <a href="/contact/" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity">
-            Start Planning Your Trip
-            <svg xmlns="https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Simpleicons_Interface_arrow-curve-pointing-to-right-direction.svg/500px-Simpleicons_Interface_arrow-curve-pointing-to-right-direction.svg.png?_=20160307131528" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
-        </div>
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20" style="min-height: 400px;">
+        <p class="section-subtitle text-white/70 mb-2">ORIGINAL ITINERARY</p>
+        <h2 class="text-white text-2xl sm:text-3xl md:text-[32px] font-medium font-sans mb-4 max-w-3xl">
+          Our Morocco Private Tours are designed to your taste
+        </h2>
+        <p class="text-white/70 text-[15px] max-w-2xl mb-8">
+          If you are interested in getting to know the country and discovering more about destinations in Morocco, we invite you to explore our suggested itineraries
+        </p>
+        <a href="/tours/" class="btn-cta">
+          EXPLORE TOURS &rarr;
+        </a>
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 bg-muted">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-        <div class="animate-on-scroll text-center mb-14">
-          <span class="text-primary font-semibold text-sm uppercase tracking-widest">Testimonials</span>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mt-3">What Travelers Say</h2>
+    <!-- ==================== HOW DOES IT WORK (4 Steps) ==================== -->
+    <section class="py-20 bg-background">
+      <div class="container-site">
+        <div class="text-center mb-14 animate-on-scroll">
+          <p class="section-subtitle">PERSONALISED MOROCCO PRIVATE TOURS</p>
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans">
+            How does it work?
+          </h2>
         </div>
-        <div class="grid sm:grid-cols-2 gap-6">
-          {testimonials.map((t, i) => (
-            <div class="animate-on-scroll" data-delay={i * 0.1}>
-              <div class="bg-card p-6 rounded-lg shadow-md h-full flex flex-col">
-                <div class="flex items-center gap-1 mb-4">
-                  {[1,2,3,4,5].map(() => (
-                    <svg xmlns="https://i.etsystatic.com/23821301/r/il/b430d8/6100068118/il_fullxfull.6100068118_r8ha.jpg" class="w-4 h-4 fill-primary text-primary" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                  ))}
-                </div>
-                <p class="text-muted-foreground leading-relaxed italic flex-1">
-                  "{t.text}"
-                </p>
-                <div class="mt-4 pt-4 border-t border-border">
-                  <div class="font-semibold text-sm">{t.name}</div>
-                  <div class="text-xs text-muted-foreground">{t.location} &bull; {t.tour}</div>
-                </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {steps.map((step, i) => (
+            <div class="text-center animate-on-scroll" data-delay={i * 0.15}>
+              <div class="step-circle">
+                {step.number}
               </div>
+              <h3 class="text-[17px] font-semibold text-primary mb-3">{step.title}</h3>
+              <p class="text-[14px] text-primary/70 leading-relaxed">{step.description}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="py-20 bg-secondary text-white">
-      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 text-center">
-        <div class="animate-on-scroll">
-          <svg xmlns="https://i.ytimg.com/vi/c9KHUPGzgYg/sddefault.jpg" class="w-12 h-12 text-primary mx-auto mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-          </svg>
-          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4">Your Morocco Journey Awaits</h2>
-          <p class="text-white/70 max-w-2xl mx-auto mb-8 text-lg">Tell us your dream trip and we will craft a personalized itinerary just for you. No obligations, no hidden fees — just honest travel advice.</p>
-          <a href="/contact/" class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary text-primary-foreground font-semibold text-lg hover:opacity-90 transition-opacity">
-            Get Your Free Quote
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-          </a>
+    <!-- ==================== ACTIVITIES CTA ==================== -->
+    <section class="relative overflow-hidden" style="min-height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.desertCamp} alt="Desert adventure activity" class="w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-20" style="min-height: 350px;">
+        <p class="section-subtitle text-white/70 mb-2">BREAK THE ROUTINE</p>
+        <h2 class="text-white text-2xl sm:text-3xl md:text-[30px] font-medium font-sans mb-4 max-w-3xl">
+          We offer a variety of extra activities to make your experience even more exciting
+        </h2>
+        <a href="/activities/" class="btn-cta mt-4">
+          EXPLORE ACTIVITIES &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- ==================== CONTACT FORM + PHONE NUMBERS ==================== -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="grid md:grid-cols-5 gap-12">
+          <!-- Left: Contact Form -->
+          <div class="md:col-span-3">
+            <div class="bg-white p-8 shadow-sm animate-on-scroll">
+              <h2 class="text-[26px] font-semibold text-primary font-display italic mb-2">
+                Send us an email!
+              </h2>
+              <p class="text-[14px] text-primary/70 mb-8">
+                Please fill out the form. We will respond as soon as possible.
+              </p>
+
+              <form id="home-contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="space-y-4">
+                <input type="text" name="name" placeholder="Name *" required class="form-input" />
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <input type="tel" name="phone" placeholder="Phone" class="form-input" />
+                  <input type="email" name="email" placeholder="E-mail *" required class="form-input" />
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <select name="days" class="form-input">
+                    <option value="">N&ordm; of Days</option>
+                    <option value="3-4">3-4 days</option>
+                    <option value="5-7">5-7 days</option>
+                    <option value="8-10">8-10 days</option>
+                    <option value="11-14">11-14 days</option>
+                    <option value="15+">15+ days</option>
+                  </select>
+                  <select name="people" class="form-input">
+                    <option value="">N&ordm; of People</option>
+                    <option value="1">1 person</option>
+                    <option value="2">2 people</option>
+                    <option value="3-4">3-4 people</option>
+                    <option value="5-8">5-8 people</option>
+                    <option value="9+">9+ people</option>
+                  </select>
+                </div>
+
+                <!-- Points of Interest -->
+                <div>
+                  <p class="text-[14px] text-primary/80 mb-3">Points of Interest:</p>
+                  <div class="flex flex-wrap gap-x-6 gap-y-2">
+                    <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                      <input type="checkbox" name="interests" value="Imperial Cities" class="accent-primary" />
+                      Imperial Cities
+                    </label>
+                    <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                      <input type="checkbox" name="interests" value="History and Culture" class="accent-primary" />
+                      History and Culture
+                    </label>
+                    <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                      <input type="checkbox" name="interests" value="Nature and Well-being" class="accent-primary" />
+                      Nature and Well-being
+                    </label>
+                    <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                      <input type="checkbox" name="interests" value="Sea and Beaches" class="accent-primary" />
+                      Sea and Beaches
+                    </label>
+                    <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                      <input type="checkbox" name="interests" value="Desert" class="accent-primary" />
+                      Desert
+                    </label>
+                  </div>
+                </div>
+
+                <textarea name="message" placeholder="Message" rows="5" class="form-input resize-none"></textarea>
+
+                <label class="flex items-start gap-2 text-[13px] text-primary/60 cursor-pointer">
+                  <input type="checkbox" required class="mt-1 accent-primary" />
+                  * I agree with the Privacy Policy. (* required fields)
+                </label>
+
+                <button type="submit" class="btn-submit">
+                  SEND MESSAGE
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right: Phone Numbers -->
+          <div class="md:col-span-2">
+            <div class="animate-on-scroll" data-delay="0.2">
+              <h2 class="text-[24px] font-medium text-primary-light font-sans mb-3">
+                Do you need help?
+              </h2>
+              <p class="text-[14px] text-primary/70 mb-8">
+                Do you need help or have any questions? Don't hesitate to contact us directly via phone or WhatsApp.
+              </p>
+
+              <div class="space-y-6">
+                {[
+                  { country: 'PORTUGAL', phone: '+351 923 578 090' },
+                  { country: 'BRASIL', phone: '+55 113 280 9467' },
+                  { country: 'MARROCOS', phone: '+212 644 957 982' },
+                  { country: 'USA', phone: '+1 716 218 3861' },
+                  { country: 'CHINA', phone: '+86 159 5181 3373' },
+                ].map((item) => (
+                  <div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <svg class="w-4 h-4 text-primary-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                      </svg>
+                      <span class="text-[14px] font-bold text-primary">{item.country}</span>
+                    </div>
+                    <a href={`tel:${item.phone.replace(/\s/g, '')}`} class="text-[15px] text-primary-light hover:text-primary transition-colors">
+                      {item.phone}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 </Layout>
+
+<script>
+  function initHomeForm() {
+    const form = document.getElementById('home-contact-form') as HTMLFormElement;
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (!btn) return;
+      btn.disabled = true;
+      btn.textContent = 'SENDING...';
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' },
+        });
+        if (res.ok) {
+          form.innerHTML = '<div class="text-center py-8"><h3 class="text-xl font-semibold text-primary mb-2">Message Sent!</h3><p class="text-primary/70">Thank you. We will respond within 24 hours.</p></div>';
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'SEND MESSAGE';
+        alert('Error sending message. Please email us directly at info@sirocotours.com');
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initHomeForm);
+  document.addEventListener('astro:page-load', initHomeForm);
+</script>

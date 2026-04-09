@@ -1,56 +1,50 @@
 ---
 const currentPath = Astro.url.pathname;
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/tours/', label: 'Tours' },
-  { href: '/about/', label: 'About' },
-  { href: '/blog/', label: 'Blog' },
-  { href: '/contact/', label: 'Contact' },
+  { href: '/', label: 'HOME' },
+  { href: '/tours/', label: 'TOURS' },
+  { href: '/about/', label: 'TEAM' },
+  { href: '/activities/', label: 'ACTIVITIES' },
+  { href: '/blog/', label: 'BLOG' },
+  { href: '/contact/', label: 'CONTACTS' },
 ];
 ---
 
 <header id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
-  <div class="max-w-[1200px] mx-auto px-4 sm:px-6">
-    <nav class="flex items-center justify-between h-16 sm:h-20">
+  <div class="container-site">
+    <nav class="flex items-center justify-between" style="height: 91px;">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 group">
-        <div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-          <svg xmlns="https://i.ytimg.com/vi/caRQ1ACyPd4/maxresdefault.jpg" class="w-5 h-5 text-primary-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
-          </svg>
-        </div>
-        <div class="flex flex-col">
-          <span id="logo-text" class="text-lg font-display font-bold tracking-tight leading-none text-white">Siroco Tours</span>
-          <span id="logo-sub" class="text-[10px] tracking-widest uppercase text-white/70">Morocco</span>
-        </div>
+      <a href="/" class="flex items-center shrink-0">
+        <img 
+          src="https://sirocotours.com/wp-content/uploads/2025/01/pacotes-marrocos.png" 
+          alt="Siroco Tours - Morocco Private Tours" 
+          class="h-[70px] sm:h-[80px] w-auto"
+        />
       </a>
 
       <!-- Desktop Nav -->
-      <div class="hidden md:flex items-center gap-1">
+      <div class="hidden lg:flex items-center gap-1">
         {navLinks.map((link) => (
           <a
             href={link.href}
             class:list={[
-              'nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              'nav-link px-4 py-2 text-[16px] font-normal uppercase tracking-wide transition-all duration-200 font-sans',
               currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-                ? 'bg-primary text-primary-foreground'
-                : 'text-white/90 hover:text-white hover:bg-white/10',
+                ? 'text-white font-medium'
+                : 'text-white/90 hover:text-white',
             ]}
           >
             {link.label}
           </a>
         ))}
-        <a href="/contact/" class="ml-2 px-5 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity">
-          Get a Quote
-        </a>
       </div>
 
       <!-- Mobile Toggle -->
-      <button id="mobile-toggle" class="md:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors" aria-label="Toggle menu">
-        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+      <button id="mobile-toggle" class="lg:hidden p-2 text-white hover:text-white/80 transition-colors" aria-label="Toggle menu">
+        <svg id="menu-icon" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/>
         </svg>
-        <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="close-icon" class="w-7 h-7 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
         </svg>
       </button>
@@ -58,24 +52,21 @@ const navLinks = [
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-background/98 backdrop-blur-lg border-t border-border">
-    <div class="max-w-[1200px] mx-auto px-4 py-4 space-y-1">
+  <div id="mobile-menu" class="hidden lg:hidden bg-primary/98 backdrop-blur-lg">
+    <div class="container-site py-4 space-y-1">
       {navLinks.map((link) => (
         <a
           href={link.href}
           class:list={[
-            'block px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+            'block px-4 py-3 text-[15px] font-normal uppercase tracking-wide transition-colors',
             currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
-              ? 'bg-primary text-primary-foreground'
-              : 'text-foreground hover:bg-muted',
+              ? 'text-white font-medium bg-white/10'
+              : 'text-white/80 hover:text-white hover:bg-white/5',
           ]}
         >
           {link.label}
         </a>
       ))}
-      <a href="/contact/" class="block px-4 py-3 rounded-lg bg-primary text-primary-foreground text-sm font-semibold text-center mt-2">
-        Get a Quote
-      </a>
     </div>
   </div>
 </header>
@@ -87,8 +78,6 @@ const navLinks = [
     const menu = document.getElementById('mobile-menu');
     const menuIcon = document.getElementById('menu-icon');
     const closeIcon = document.getElementById('close-icon');
-    const logoText = document.getElementById('logo-text');
-    const logoSub = document.getElementById('logo-sub');
     const navLinks = document.querySelectorAll('.nav-link');
     const mobileBtn = document.getElementById('mobile-toggle');
 
@@ -99,34 +88,10 @@ const navLinks = [
       if (!nav) return;
       if (scrolled) {
         nav.classList.remove('bg-transparent');
-        nav.classList.add('bg-background/95', 'backdrop-blur-md', 'shadow-md');
-        logoText?.classList.remove('text-white');
-        logoText?.classList.add('text-foreground');
-        logoSub?.classList.remove('text-white/70');
-        logoSub?.classList.add('text-muted-foreground');
-        mobileBtn?.classList.remove('text-white', 'hover:bg-white/10');
-        mobileBtn?.classList.add('text-foreground', 'hover:bg-muted');
-        navLinks.forEach((link) => {
-          if (!link.classList.contains('bg-primary')) {
-            link.classList.remove('text-white/90', 'hover:text-white', 'hover:bg-white/10');
-            link.classList.add('text-foreground', 'hover:bg-muted');
-          }
-        });
+        nav.classList.add('bg-primary', 'shadow-lg');
       } else {
         nav.classList.add('bg-transparent');
-        nav.classList.remove('bg-background/95', 'backdrop-blur-md', 'shadow-md');
-        logoText?.classList.add('text-white');
-        logoText?.classList.remove('text-foreground');
-        logoSub?.classList.add('text-white/70');
-        logoSub?.classList.remove('text-muted-foreground');
-        mobileBtn?.classList.add('text-white', 'hover:bg-white/10');
-        mobileBtn?.classList.remove('text-foreground', 'hover:bg-muted');
-        navLinks.forEach((link) => {
-          if (!link.classList.contains('bg-primary')) {
-            link.classList.add('text-white/90', 'hover:text-white', 'hover:bg-white/10');
-            link.classList.remove('text-foreground', 'hover:bg-muted');
-          }
-        });
+        nav.classList.remove('bg-primary', 'shadow-lg');
       }
     }
 
