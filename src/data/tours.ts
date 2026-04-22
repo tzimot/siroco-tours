@@ -39,6 +39,12 @@ export const TOUR_IMAGES = {
   stargazing: 'https://sirocotours.com/wp-content/uploads/2024/08/constellation-300x169.jpg',
   draaValley: 'https://sirocotours.com/wp-content/uploads/2024/07/oasis_1.jpg',
   door: 'https://sirocotours.com/wp-content/uploads/2024/08/burro.jpg',
+  toursBanner: 'https://sirocotours.com/wp-content/uploads/2024/08/burro.jpg',
+  activitiesBanner: 'https://sirocotours.com/wp-content/uploads/2025/05/gnaoua-peoples.jpg',
+  contactsBanner: 'https://sirocotours.com/wp-content/uploads/2024/06/DSCF5452-3.jpg',
+  contactsSecondary: 'https://sirocotours.com/wp-content/uploads/2024/06/DSCF5419.jpg',
+  teamBanner: 'https://sirocotours.com/wp-content/uploads/2024/06/DSC_9302_3.jpg',
+  teamSecondary: 'https://sirocotours.com/wp-content/uploads/2024/06/DSC_9587_1.jpg',
 };
 
 export const tours: Tour[] = [
