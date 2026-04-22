@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { TOUR_IMAGES } from '../data/tours';
+---
+
+<Layout title="Blog" description="Travel tips, Morocco guides, and inspiration from Siroco Tours.">
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.marrakech} alt="Morocco travel blog" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">BLOG</h1>
+      </div>
+    </section>
+
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+          <h2 class="text-[28px] font-medium text-primary font-sans mb-4">
+            Coming Soon
+          </h2>
+          <p class="text-[15px] text-primary/70 leading-relaxed mb-8">
+            We're working on bringing you travel tips, Morocco guides, and inspiring stories from our tours. Stay tuned!
+          </p>
+          <a href="/contact/" class="btn-submit" style="width: auto; display: inline-block;">
+            CONTACT US
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

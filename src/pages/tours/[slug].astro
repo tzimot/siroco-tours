@@ -1,0 +1,216 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tours, type Tour } from '../../data/tours';
+
+export function getStaticPaths() {
+  return tours.map((tour) => ({
+    params: { slug: tour.slug },
+    props: { tour },
+  }));
+}
+
+interface Props {
+  tour: Tour;
+}
+
+const { tour } = Astro.props;
+const allImages = tour.galleryImages.filter(Boolean);
+---
+
+<Layout title={tour.name} description={tour.shortDescription}>
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-end overflow-hidden" style="height: 450px;">
+      <div class="absolute inset-0">
+        <img src={tour.heroImage} alt={`${tour.name} - Morocco private tour`} class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10"></div>
+      </div>
+      <div class="relative z-10 container-site w-full pb-12">
+        <a href="/tours/" class="inline-flex items-center gap-1 text-white/70 hover:text-white text-sm mb-4 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          Back to Tours
+        </a>
+        <h1 class="text-3xl sm:text-4xl font-bold text-white font-sans tracking-tight mb-3">{tour.name}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-white/80">
+          <span class="flex items-center gap-1.5 text-sm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            {tour.duration}
+          </span>
+          <span class="flex items-center gap-1.5 text-sm">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            {tour.startLocation} &rarr; {tour.endLocation}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container-site py-12">
+      <div class="grid lg:grid-cols-3 gap-10">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Description -->
+          <div class="animate-on-scroll">
+            <h2 class="text-[24px] font-semibold text-primary mb-4">About This Tour</h2>
+            <p class="text-[15px] text-primary/70 leading-relaxed">{tour.description}</p>
+            {tour.specialNotes && (
+              <div class="mt-4 p-4 bg-primary/5 border-l-4 border-accent">
+                <p class="text-[14px] text-primary/70">{tour.specialNotes}</p>
+              </div>
+            )}
+          </div>
+
+          <!-- Highlights -->
+          <div class="animate-on-scroll">
+            <h2 class="text-[24px] font-semibold text-primary mb-4">Tour Highlights</h2>
+            <div class="grid sm:grid-cols-2 gap-3">
+              {tour.highlights.map((h) => (
+                <div class="flex items-start gap-2 p-3 bg-background">
+                  <svg class="w-4 h-4 text-accent mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                  <span class="text-[14px] text-primary/80">{h}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Itinerary -->
+          <div class="animate-on-scroll">
+            <h2 class="text-[24px] font-semibold text-primary mb-6">Day-by-Day Itinerary</h2>
+            <div class="space-y-4">
+              {tour.itinerary.map((day, i) => (
+                <div class="animate-on-scroll bg-white p-5 shadow-sm hover:shadow-md transition-shadow" data-delay={i * 0.05}>
+                  <div class="flex items-start gap-4">
+                    <div class="step-circle" style="width: 50px; height: 50px; font-size: 14px; margin: 0; flex-shrink: 0;">
+                      {String(day.day).padStart(2, '0')}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-[16px] font-semibold text-primary mb-1">{day.route}</h3>
+                      <p class="text-[14px] text-primary/70 leading-relaxed">{day.highlights}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Gallery -->
+          {allImages.length > 0 && (
+            <div class="animate-on-scroll">
+              <h2 class="text-[24px] font-semibold text-primary mb-4">Gallery</h2>
+              <div class="grid grid-cols-2 gap-3">
+                {allImages.map((img, i) => (
+                  <div class="relative aspect-[3/2] overflow-hidden bg-gray-200">
+                    <img src={img} alt={`${tour.name} - ${tour.highlights[i] || `scene ${i + 1}`}`} class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Included / Not Included -->
+          <div class="animate-on-scroll">
+            <div class="grid sm:grid-cols-2 gap-6">
+              <div>
+                <h2 class="text-[20px] font-semibold text-primary mb-4">What's Included</h2>
+                <ul class="space-y-2">
+                  {tour.included.map((item) => (
+                    <li class="flex items-start gap-2 text-[14px]">
+                      <svg class="w-4 h-4 text-green-600 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      <span class="text-primary/80">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h2 class="text-[20px] font-semibold text-primary mb-4">Not Included</h2>
+                <ul class="space-y-2">
+                  {tour.notIncluded.map((item) => (
+                    <li class="flex items-start gap-2 text-[14px]">
+                      <svg class="w-4 h-4 text-red-500 mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                      <span class="text-primary/80">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Optional Activities -->
+          {tour.optionalActivities.length > 0 && (
+            <div class="animate-on-scroll">
+              <h2 class="text-[20px] font-semibold text-primary mb-4">Optional Activities</h2>
+              <div class="flex flex-wrap gap-2">
+                {tour.optionalActivities.map((activity) => (
+                  <span class="px-4 py-2 bg-primary/5 text-primary/80 text-[14px] border border-primary/10">{activity}</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-1">
+          <div class="sticky top-24 space-y-6">
+            <!-- CTA Card -->
+            <div class="bg-white p-6 shadow-md">
+              <h3 class="text-[20px] font-semibold text-primary mb-2">Interested in This Tour?</h3>
+              <p class="text-[14px] text-primary/70 mb-6">This is a private tour, fully customizable to your preferences. Request a free, no-obligation quote.</p>
+              <a href={`/contact/?tour=${encodeURIComponent(tour.name)}`} class="btn-submit text-center block">
+                REQUEST A QUOTE
+              </a>
+            </div>
+
+            <!-- Quick Facts -->
+            <div class="bg-white p-6 shadow-sm">
+              <h3 class="text-[18px] font-semibold text-primary mb-4">Quick Facts</h3>
+              <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 icon-gold shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div>
+                    <div class="text-[12px] text-primary/50 uppercase tracking-wide">Duration</div>
+                    <div class="text-[14px] font-medium text-primary">{tour.duration}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 icon-gold shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-[12px] text-primary/50 uppercase tracking-wide">Start</div>
+                    <div class="text-[14px] font-medium text-primary">{tour.startLocation}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 icon-gold shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <div class="text-[12px] text-primary/50 uppercase tracking-wide">End</div>
+                    <div class="text-[14px] font-medium text-primary">{tour.endLocation}</div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 icon-gold shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <div>
+                    <div class="text-[12px] text-primary/50 uppercase tracking-wide">Type</div>
+                    <div class="text-[14px] font-medium text-primary">Private, Customizable</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone Contact -->
+            <div class="bg-white p-6 shadow-sm">
+              <h3 class="text-[16px] font-semibold text-primary mb-3">Call Us Directly</h3>
+              <div class="space-y-2">
+                <a href="tel:+351923578090" class="flex items-center gap-2 text-[14px] text-primary-light hover:text-primary transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  +351 923 578 090
+                </a>
+                <a href="mailto:info@sirocotours.com" class="flex items-center gap-2 text-[14px] text-primary-light hover:text-primary transition-colors">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  info@sirocotours.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>

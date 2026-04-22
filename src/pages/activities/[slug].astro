@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { activities } from '../../data/activities';
+
+export function getStaticPaths() {
+  return activities.map((activity) => ({
+    params: { slug: activity.slug },
+    props: { activity },
+  }));
+}
+
+const { activity } = Astro.props;
+---
+
+<Layout title={activity.title} description={activity.shortDescription}>
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-end overflow-hidden" style="height: 420px;">
+      <div class="absolute inset-0">
+        <img src={activity.image} alt={activity.title} class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 container-site pb-12">
+        <p class="section-subtitle text-white/70 mb-2">ACTIVITY</p>
+        <h1 class="text-white text-3xl sm:text-4xl md:text-[42px] font-medium font-sans max-w-3xl animate-on-scroll">
+          {activity.title}
+        </h1>
+      </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="max-w-3xl mx-auto animate-on-scroll">
+          {activity.fullDescription.map((paragraph) => (
+            <p class="text-[15px] text-primary/80 leading-relaxed mb-5">{paragraph}</p>
+          ))}
+
+          <div class="mt-10 pt-8 border-t border-primary/10 text-center">
+            <p class="text-[15px] text-primary/70 mb-6">
+              Interested in adding this activity to your tour?
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+              <a href="/contact/" class="btn-submit" style="width: auto; display: inline-block;">
+                CONTACT US
+              </a>
+              <a href="/activities/" class="text-[14px] text-primary-light hover:text-primary font-medium uppercase tracking-wide transition-colors">
+                &larr; Back to all activities
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

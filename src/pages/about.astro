@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { TOUR_IMAGES } from '../data/tours';
+import { teamMembers } from '../data/team';
+---
+
+<Layout title="Team" description="Meet the Siroco Tours team. A multicultural, multilingual team of experienced guides and travel consultants dedicated to crafting unforgettable journeys across Morocco.">
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.marrakech} alt="Siroco Tours team" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">OUR TEAM</h1>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="max-w-3xl mx-auto text-center mb-16 animate-on-scroll">
+          <p class="section-subtitle">ABOUT SIROCO TOURS</p>
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans mb-6">
+            Passionate About Morocco
+          </h2>
+          <p class="text-[15px] text-primary/70 leading-relaxed mb-4">
+            Siroco Tours was founded with a simple mission: to share the authentic beauty of Morocco with travellers who seek genuine experiences beyond the typical tourist routes.
+          </p>
+          <p class="text-[15px] text-primary/70 leading-relaxed mb-4">
+            Based in Casablanca, our multicultural team of experienced guides and travel consultants have been crafting personalised Moroccan journeys for years. We believe travel should be personal, meaningful, and transformative.
+          </p>
+          <p class="text-[15px] text-primary/70 leading-relaxed">
+            Every tour is private and fully customizable &mdash; from a 4-day desert escape to a 15-day deep exploration. Our multilingual guides share not just facts, but stories, traditions, and hidden corners that only locals know.
+          </p>
+        </div>
+
+        <!-- Team Grid -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {teamMembers.map((member, i) => (
+            <div class="text-center animate-on-scroll" data-delay={i * 0.1}>
+              <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <span class="text-2xl font-semibold text-primary">{member.initials}</span>
+              </div>
+              <h3 class="text-[18px] font-semibold text-primary mb-1">{member.name}</h3>
+              <p class="text-[13px] text-primary-light font-medium uppercase tracking-wide mb-3">{member.role}</p>
+              <p class="text-[14px] text-primary/70 leading-relaxed mb-3">{member.bio}</p>
+              <p class="text-[12px] text-primary/50 uppercase tracking-wider">
+                {member.languages.join(' \u00B7 ')}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-16 bg-white">
+      <div class="container-site">
+        <div class="text-center mb-12 animate-on-scroll">
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans">
+            Our Values
+          </h2>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-8">
+          <div class="text-center animate-on-scroll">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+              </svg>
+            </div>
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Authenticity</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">We show you the real Morocco, beyond tourist facades. Genuine connections with local people and traditions.</p>
+          </div>
+          <div class="text-center animate-on-scroll" data-delay="0.15">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+              </svg>
+            </div>
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Safety</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">Government-licensed vehicles, experienced guides, and comprehensive insurance for your complete peace of mind.</p>
+          </div>
+          <div class="text-center animate-on-scroll" data-delay="0.3">
+            <div class="flex justify-center mb-4">
+              <svg class="w-14 h-14 icon-gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <h3 class="text-[18px] font-semibold text-primary mb-3">Excellence</h3>
+            <p class="text-[14px] text-primary/70 leading-relaxed">From hand-picked accommodations to personalised itineraries, we deliver the highest standards in every detail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="relative overflow-hidden" style="min-height: 300px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.hero} alt="Morocco desert" class="w-full h-full object-cover" loading="lazy" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-4 py-16" style="min-height: 300px;">
+        <h2 class="text-white text-2xl sm:text-[30px] font-medium font-sans mb-6">
+          Ready to explore Morocco with us?
+        </h2>
+        <a href="/contact/" class="btn-cta">
+          CONTACT US &rarr;
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import type { Tour } from '../data/tours';
+
+interface Props {
+  tour: Tour;
+  delay?: number;
+}
+
+const { tour, delay = 0 } = Astro.props;
+---
+
+<div class="animate-on-scroll" data-delay={delay}>
+  <a href={`/tours/${tour.slug}/`} class="group block h-full">
+    <div class="relative overflow-hidden aspect-[4/3] bg-gray-200">
+      <!-- Tour Image -->
+      <img
+        src={tour.heroImage}
+        alt={`${tour.name} - Morocco private tour`}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+        loading="lazy"
+      />
+      <!-- Gradient Overlay -->
+      <div class="tour-card-overlay absolute inset-0"></div>
+      <!-- Text Overlay -->
+      <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
+        <h3 class="text-white text-lg font-medium leading-snug mb-1">
+          {tour.name} &ndash; {tour.duration}
+        </h3>
+        <span class="text-white/80 text-xs uppercase tracking-[0.15em] font-light">
+          FIND OUT MORE
+        </span>
+      </div>
+    </div>
+  </a>
+</div>

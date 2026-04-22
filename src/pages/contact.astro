@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { tours, TOUR_IMAGES } from '../data/tours';
+import { company, phones, contactFormInterests } from '../data/company';
+---
+
+<Layout title="Contacts" description="Get a free, personalized quote for your dream Morocco trip. Contact Siroco Tours today.">
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.door} alt="Ornate traditional Moroccan door" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">CONTACTS</h1>
+      </div>
+    </section>
+
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="grid md:grid-cols-5 gap-12">
+          <!-- Form -->
+          <div class="md:col-span-3">
+            <div class="bg-white p-8 shadow-sm animate-on-scroll">
+              <h2 class="text-[26px] font-semibold text-primary font-display italic mb-2">
+                Send us an email!
+              </h2>
+              <p class="text-[14px] text-primary/70 mb-8">
+                Please fill out the form. We will respond as soon as possible.
+              </p>
+
+              <!-- Success Message -->
+              <div id="success-msg" class="hidden text-center py-8">
+                <svg class="w-12 h-12 text-green-600 mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+                <h3 class="text-xl font-semibold text-primary mb-2">Message Sent!</h3>
+                <p class="text-primary/70 mb-4">Thank you for reaching out. We will get back to you within 24 hours.</p>
+                <button id="send-another" class="btn-submit" style="width: auto; display: inline-block;">Send Another Message</button>
+              </div>
+
+              <!-- IMPORTANT: Replace YOUR_FORMSPREE_ID with your actual Formspree form ID -->
+              <form id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="space-y-4">
+                <input type="text" name="name" placeholder="Name *" required class="form-input" />
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <input type="tel" name="phone" placeholder="Phone" class="form-input" />
+                  <input type="email" name="email" placeholder="E-mail *" required class="form-input" />
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <select name="days" class="form-input">
+                    <option value="">N&ordm; of Days</option>
+                    <option value="3-4">3-4 days</option>
+                    <option value="5-7">5-7 days</option>
+                    <option value="8-10">8-10 days</option>
+                    <option value="11-14">11-14 days</option>
+                    <option value="15+">15+ days</option>
+                  </select>
+                  <select name="people" class="form-input">
+                    <option value="">N&ordm; of People</option>
+                    <option value="1">1 person</option>
+                    <option value="2">2 people</option>
+                    <option value="3-4">3-4 people</option>
+                    <option value="5-8">5-8 people</option>
+                    <option value="9+">9+ people</option>
+                  </select>
+                </div>
+
+                <!-- Tour Interest -->
+                <select name="tourInterest" class="form-input">
+                  <option value="">Select a tour (optional)</option>
+                  {tours.map((t) => (
+                    <option value={t.name}>{t.name} ({t.duration})</option>
+                  ))}
+                  <option value="Custom Tour">Custom / Not Sure Yet</option>
+                </select>
+
+                <!-- Points of Interest -->
+                <div>
+                  <p class="text-[14px] text-primary/80 mb-3">Points of Interest:</p>
+                  <div class="flex flex-wrap gap-x-6 gap-y-2">
+                    {contactFormInterests.map((interest) => (
+                      <label class="flex items-center gap-2 text-[14px] text-primary/80 cursor-pointer">
+                        <input type="checkbox" name="interests" value={interest} class="accent-primary" />
+                        {interest}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <textarea name="message" placeholder="Message" rows="5" class="form-input resize-none"></textarea>
+
+                <label class="flex items-start gap-2 text-[13px] text-primary/60 cursor-pointer">
+                  <input type="checkbox" required class="mt-1 accent-primary" />
+                  * I agree with the Privacy Policy. (* required fields)
+                </label>
+
+                <button type="submit" id="submit-btn" class="btn-submit">
+                  SEND MESSAGE
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right: Phone Numbers -->
+          <div class="md:col-span-2">
+            <div class="animate-on-scroll" data-delay="0.2">
+              <h2 class="text-[24px] font-medium text-primary-light font-sans mb-3">
+                Do you need help?
+              </h2>
+              <p class="text-[14px] text-primary/70 mb-8">
+                Do you need help or have any questions? Don't hesitate to contact us directly via phone or WhatsApp.
+              </p>
+
+              <div class="space-y-6">
+                {phones.map((item) => (
+                  <div>
+                    <div class="flex items-center gap-2 mb-1">
+                      <svg class="w-4 h-4 text-primary-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                      </svg>
+                      <span class="text-[14px] font-bold text-primary">{item.label}</span>
+                    </div>
+                    <a href={`tel:${item.tel}`} class="text-[15px] text-primary-light hover:text-primary transition-colors">
+                      {item.number}
+                    </a>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Map or Address Card -->
+              <div class="mt-10 p-6 bg-white shadow-sm">
+                <h3 class="text-[16px] font-semibold text-primary mb-3">Our Office</h3>
+                <div class="space-y-2 text-[14px] text-primary/70">
+                  <p>{company.office}</p>
+                  <a href={`mailto:${company.email}`} class="text-primary-light hover:text-primary block mt-2">{company.email}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const successMsg = document.getElementById('success-msg');
+    const submitBtn = document.getElementById('submit-btn');
+    const sendAnother = document.getElementById('send-another');
+
+    // Pre-select tour from URL params
+    const params = new URLSearchParams(window.location.search);
+    const tourParam = params.get('tour');
+    if (tourParam) {
+      const select = form?.querySelector('select[name="tourInterest"]') as HTMLSelectElement;
+      if (select) {
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === tourParam) {
+            select.selectedIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!submitBtn) return;
+      (submitBtn as HTMLButtonElement).disabled = true;
+      submitBtn.textContent = 'SENDING...';
+
+      try {
+        const formData = new FormData(form);
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' },
+        });
+        if (res.ok) {
+          form.classList.add('hidden');
+          successMsg?.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        alert('Error sending message. Please email us directly at info@sirocotours.com');
+      } finally {
+        (submitBtn as HTMLButtonElement).disabled = false;
+        submitBtn.textContent = 'SEND MESSAGE';
+      }
+    });
+
+    sendAnother?.addEventListener('click', () => {
+      successMsg?.classList.add('hidden');
+      form?.classList.remove('hidden');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initContactForm);
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

@@ -1,0 +1,111 @@
+---
+const currentPath = Astro.url.pathname;
+const navLinks = [
+  { href: '/', label: 'HOME' },
+  { href: '/tours/', label: 'TOURS' },
+  { href: '/about/', label: 'TEAM' },
+  { href: '/activities/', label: 'ACTIVITIES' },
+  { href: '/blog/', label: 'BLOG' },
+  { href: '/contact/', label: 'CONTACTS' },
+];
+---
+
+<header id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+  <div class="container-site">
+    <nav class="flex items-center justify-between" style="height: 91px;">
+      <!-- Logo -->
+      <a href="/" class="flex items-center shrink-0">
+        <img 
+          src="https://sirocotours.com/wp-content/uploads/2025/01/pacotes-marrocos.png" 
+          alt="Siroco Tours - Morocco Private Tours" 
+          class="h-[70px] sm:h-[80px] w-auto"
+        />
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden lg:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'nav-link px-4 py-2 text-[16px] font-normal uppercase tracking-wide transition-all duration-200 font-sans',
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                ? 'text-white font-medium'
+                : 'text-white/90 hover:text-white',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button id="mobile-toggle" class="lg:hidden p-2 text-white hover:text-white/80 transition-colors" aria-label="Toggle menu">
+        <svg id="menu-icon" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/>
+        </svg>
+        <svg id="close-icon" class="w-7 h-7 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-primary/98 backdrop-blur-lg">
+    <div class="container-site py-4 space-y-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'block px-4 py-3 text-[15px] font-normal uppercase tracking-wide transition-colors',
+            currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+              ? 'text-white font-medium bg-white/10'
+              : 'text-white/80 hover:text-white hover:bg-white/5',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  function initNav() {
+    const nav = document.getElementById('main-nav');
+    const toggle = document.getElementById('mobile-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileBtn = document.getElementById('mobile-toggle');
+
+    let isOpen = false;
+
+    function updateScrollStyles() {
+      const scrolled = window.scrollY > 20;
+      if (!nav) return;
+      if (scrolled) {
+        nav.classList.remove('bg-transparent');
+        nav.classList.add('bg-primary', 'shadow-lg');
+      } else {
+        nav.classList.add('bg-transparent');
+        nav.classList.remove('bg-primary', 'shadow-lg');
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollStyles);
+    updateScrollStyles();
+
+    toggle?.addEventListener('click', () => {
+      isOpen = !isOpen;
+      menu?.classList.toggle('hidden');
+      menuIcon?.classList.toggle('hidden');
+      closeIcon?.classList.toggle('hidden');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initNav);
+  document.addEventListener('astro:page-load', initNav);
+</script>

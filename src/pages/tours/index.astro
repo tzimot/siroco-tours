@@ -1,0 +1,52 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TourCard from '../../components/TourCard.astro';
+import { tours, TOUR_IMAGES } from '../../data/tours';
+import { toursListing } from '../../data/tours_listing';
+---
+
+<Layout title={toursListing.seo.title} description={toursListing.seo.description}>
+  <main>
+    <!-- Hero -->
+    <section class="relative flex items-center justify-center overflow-hidden" style="height: 350px;">
+      <div class="absolute inset-0">
+        <img src={TOUR_IMAGES.hero} alt="Morocco desert landscape with golden dunes" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-black/50"></div>
+      </div>
+      <div class="relative z-10 text-center px-4">
+        <p class="section-subtitle text-white/70 mb-2">{toursListing.hero.eyebrow}</p>
+        <h1 class="hero-title text-3xl sm:text-[36px] animate-on-scroll">{toursListing.hero.title}</h1>
+      </div>
+    </section>
+
+    <!-- Tours Grid -->
+    <section class="py-16 bg-background">
+      <div class="container-site">
+        <div class="max-w-4xl mx-auto text-center mb-12 animate-on-scroll">
+          <p class="section-subtitle">PERSONALISED MOROCCO PRIVATE TOURS</p>
+          <h2 class="text-[28px] sm:text-[32px] font-medium text-primary font-sans mb-6">
+            Explore Morocco Your Way
+          </h2>
+          <p class="text-[15px] text-primary/70 leading-relaxed text-justify">
+            {toursListing.introText}
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          {tours.map((tour, i) => (
+            <TourCard tour={tour} delay={i * 0.08} />
+          ))}
+        </div>
+
+        <div class="text-center mt-14 animate-on-scroll">
+          <p class="text-[15px] text-primary/70 mb-6 max-w-xl mx-auto">
+            Don't see exactly what you're looking for? All our tours are fully customizable. Contact us to create your perfect itinerary.
+          </p>
+          <a href="/contact/" class="btn-submit" style="width: auto; display: inline-block;">
+            REQUEST A CUSTOM TOUR
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
